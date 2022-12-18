@@ -1,16 +1,10 @@
 {
   "heroes": [
     {
-      "id": 1,
-      "name": "Первый герой",
-      "description": "Первый герой в рейтинге!",
-      "element": "fire"
-    },
-    {
-      "id": 2,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
-      "element": "wind"
+      "id": "6b98ddb9-241b-4afc-9bd0-01534f0c4e9c",
+      "name": "fff",
+      "description": "xaa",
+      "element": "water"
     }
   ],
   "filters": [
