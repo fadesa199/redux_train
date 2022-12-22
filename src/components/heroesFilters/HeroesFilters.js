@@ -1,12 +1,7 @@
 import { useHttp } from "../../hooks/http.hook";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  filtersFetching,
-  filtersFetched,
-  filtersFetchingError,
-  filterActive,
-} from "../../actions";
+import { fetchFilters, filterActive } from "../../actions";
 import Spinner from "../spinner/Spinner";
 import classNames from "classnames";
 // Задача для этого компонента:
@@ -18,16 +13,13 @@ import classNames from "classnames";
 
 const HeroesFilters = () => {
   const { activeFilter, filters, filtersLoadingStatus } = useSelector(
-    (state) => state
+    (state) => state.filters
   );
   const dispatch = useDispatch();
   const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(filtersFetching());
-    request("http://localhost:3001/filters")
-      .then((data) => dispatch(filtersFetched(data)))
-      .then(() => filtersFetchingError());
+    dispatch(fetchFilters(request));
   }, []);
 
   if (filtersLoadingStatus === "loading") {
@@ -41,7 +33,9 @@ const HeroesFilters = () => {
       return <h5 className="text-center mt-5">Фильтры не найдены</h5>;
 
     return arr.map(({ name, label, className }) => {
-      const btnClass = classNames('btn', className, {active: activeFilter === name})
+      const btnClass = classNames("btn", className, {
+        active: activeFilter === name,
+      });
       return (
         <button
           key={name}
@@ -60,9 +54,7 @@ const HeroesFilters = () => {
     <div className="card shadow-lg mt-4">
       <div className="card-body">
         <p className="card-text">Отфильтруйте героев по элементам</p>
-        <div className="btn-group">
-            {elements}
-        </div>
+        <div className="btn-group">{elements}</div>
       </div>
     </div>
   );
