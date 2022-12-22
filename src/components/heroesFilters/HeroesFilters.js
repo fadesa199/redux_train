@@ -8,6 +8,7 @@ import {
   filterActive,
 } from "../../actions";
 import Spinner from "../spinner/Spinner";
+import classNames from "classnames";
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
 // Фильтры должны отображать только нужных героев при выборе
@@ -40,12 +41,11 @@ const HeroesFilters = () => {
       return <h5 className="text-center mt-5">Фильтры не найдены</h5>;
 
     return arr.map(({ name, label, className }) => {
+      const btnClass = classNames('btn', className, {active: activeFilter === name})
       return (
         <button
           key={name}
-          className={`btn ${className} ${
-            activeFilter === name ? " active" : null
-          }`}
+          className={btnClass}
           onClick={() => dispatch(filterActive(name))}
         >
           {label}
