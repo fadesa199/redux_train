@@ -2,24 +2,16 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { useHttp } from "../../hooks/http.hook";
-import { heroCreated } from "../../actions";
-
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
+import { heroCreated } from "../heroesList/heroesSlice";
 
 const HeroesAddForm = () => {
   const [heroName, setHeroName] = useState("");
   const [heroDescription, setHeroDescription] = useState("");
   const [heroElement, setHeroElement] = useState("");
 
-  const { filters, filtersLoadingStatus } = useSelector((state) => state.filters);
+  const { filters, filtersLoadingStatus } = useSelector(
+    (state) => state.filters
+  );
 
   const dispatch = useDispatch();
   const { request } = useHttp();
@@ -38,9 +30,9 @@ const HeroesAddForm = () => {
       .then((res) => console.log(res, "Отправка завершена"))
       .then(dispatch(heroCreated(newHero)))
       .catch((err) => console.log(err));
-    setHeroName('');
-    setHeroDescription('');
-    setHeroElement('');
+    setHeroName("");
+    setHeroDescription("");
+    setHeroElement("");
     // eslint-disable-next-line
   };
 
@@ -64,7 +56,6 @@ const HeroesAddForm = () => {
       });
     }
   };
-  
 
   return (
     <form className="border p-4 shadow-lg rounded" onSubmit={onSubmitHandler}>
